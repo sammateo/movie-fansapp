@@ -1,3 +1,11 @@
+if (sessionStorage) {
+	let userdetails = JSON.parse(sessionStorage.getItem("loggedinuser"));
+	console.log(userdetails);
+
+	if (!userdetails) {
+		window.location.replace("./index.html");
+	}
+}
 let homebtn = document.querySelector(".homebutton");
 homebtn.addEventListener("click", () => {
 	window.location.replace("./home.html");

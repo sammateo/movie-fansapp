@@ -94,7 +94,7 @@ main {
 	grid-gap: 10px;
 	/* background-color: var(--background-black); */
 	padding: 10px 2%;
-	margin-top: 70px;
+	margin-top: 160px;
 
 	/* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
 	/* gap: 0.5rem; */
@@ -252,6 +252,7 @@ main {
 	main {
 		/* grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
 		/* padding: 10px 10%; */
+		margin-top: 70px;
 	}
 	.search-popup,
 	.about-popup,
@@ -265,6 +266,7 @@ main {
 		/* grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); */
 		/* grid-template-columns: repeat(3, 1fr); */
 		/* padding: 10px 10%; */
+
 		grid-template-columns: repeat(2, 1fr);
 	}
 	/* .search-popup,
@@ -317,10 +319,10 @@ main {
 	background-color: #494747;
 	color: white;
 	display: flex;
-	justify-content: space-between;
+	justify-content: space-evenly;
 	flex-wrap: wrap;
 	padding: 0.5rem;
-	width: max-content;
+	width: 90%;
 	margin: 0 auto;
 	border-radius: 5px;
 }

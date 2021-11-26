@@ -150,7 +150,7 @@ const displaymovies = (movies) => {
 	for (const movie of movies) {
 		// if (i < pageTracker * 20 && i > (pageTracker - 1) * 20 - 1) {
 		let poster = document.createElement("img");
-		poster.className = "looney-tunes";
+		// poster.className = "looney-tunes";
 		poster.id = movie.id;
 		poster.src = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
 		poster.addEventListener("click", openMovie);
@@ -183,10 +183,10 @@ const checkMovieStatus = (movienum) => {
 			// console.log(data);
 			let status = document.querySelector(".status");
 			if (data == "MW") {
-				status.innerHTML = "This movie is in the Must Watch list";
+				status.innerHTML = "This movie is in the <b>Must Watch</b> list";
 				status.style.display = "block";
 			} else if (data == "AW") {
-				status.innerHTML = "This movie is in the Already Watched list";
+				status.innerHTML = "This movie is in the <b>Already Watched</b> list";
 				status.style.display = "block";
 			} else {
 				status.innerHTML = "";
@@ -205,9 +205,9 @@ const openMovie = (e) => {
 	let overview = document.querySelector(".overview");
 	let popimg = document.querySelector(".popimg");
 	// let status = document.querySelector(".status");
-	let prefix = e.target.className;
-	let choice = "." + prefix + "-popup";
-	choice = ".movie-popup";
+	// let prefix = e.target.className;
+	// let choice = "." + prefix + "-popup";
+	let choice = ".movie-popup";
 	let mov;
 	let movies;
 	if (sessionStorage) {
@@ -224,12 +224,12 @@ const openMovie = (e) => {
 	}
 
 	// console.log(mov);
-	imdbid.innerHTML = "IMBD ID: " + mov.imdb_id;
-	title.innerHTML = "TITLE: " + mov.original_title;
-	year.innerHTML = "YEAR RELEASE: " + mov.release_date;
-	runtime.innerHTML = "RUNTIME: " + mov.runtime;
-	genre.innerHTML = "GENRE: " + mov.genres;
-	overview.innerHTML = "OVERVIEW: " + mov.overview;
+	imdbid.innerHTML = "<b>IMBD ID</b> : " + mov.imdb_id;
+	title.innerHTML = "<b>TITLE</b> : " + mov.original_title;
+	year.innerHTML = "<b>YEAR RELEASE</b> : " + mov.release_date;
+	runtime.innerHTML = "<b>RUNTIME</b> : " + mov.runtime;
+	genre.innerHTML = "<b>GENRE</b> : " + mov.genres;
+	overview.innerHTML = "<b>OVERVIEW</b> : " + mov.overview;
 	popimg.src = "https://image.tmdb.org/t/p/w500" + mov.poster_path;
 	document.querySelector(choice).style.display = "block";
 	mask.style.display = "block";
@@ -240,7 +240,7 @@ const openMovie = (e) => {
 		mask.style.display = "none";
 	};
 
-	let movieClose = document.querySelector("." + prefix + "-close");
+	let movieClose = document.querySelector(choice + "-close");
 	movieClose.addEventListener("click", closeMovie);
 };
 
@@ -412,6 +412,11 @@ searchbtn.addEventListener("click", () => {
 		moviecount = JSON.parse(sessionStorage.getItem("moviecount"));
 		// sessionStorage.setItem("movies", JSON.stringify(data));
 	}
+	let searchcont = document.querySelector(".searchforcontainer");
+	searchcont.style.display = "flex";
+	let searchdisp = document.querySelector(".searchfor");
+	searchdisp.innerHTML = "<b>" + searchin.value + "</b>";
+
 	searchpagination(moviecount);
 	// displaymovies(data);
 	closeSearch();
@@ -483,6 +488,13 @@ const searchpagination = (count) => {
 	Paging(1);
 };
 
+let refresh = document.querySelector(".fa-sync-alt");
+refresh.addEventListener("click", () => {
+	movieCount();
+	let searchcont = document.querySelector(".searchforcontainer");
+	searchcont.style.display = "none";
+});
+
 // addtomustwatchlist
 let btn_mw = document.querySelector(".btn-mw");
 
@@ -517,7 +529,7 @@ btn_mw.addEventListener("click", (e) => {
 		.then((data) => {
 			// console.log(data);
 			let status = document.querySelector(".status");
-			status.innerHTML = "Must Watch list is updated";
+			status.innerHTML = "<b>Must Watch</b> list is updated";
 			status.style.display = "block";
 		});
 });
@@ -556,7 +568,7 @@ btn_aw.addEventListener("click", (e) => {
 		.then((data) => {
 			// console.log(data);
 			let status = document.querySelector(".status");
-			status.innerHTML = "Already Watched list is updated";
+			status.innerHTML = "<b>Already Watched</b> list is updated";
 			status.style.display = "block";
 		});
 });

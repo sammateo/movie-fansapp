@@ -13,9 +13,13 @@
 	</head>
 	<body>
 		<header>
-			<div>
+			<div class="titlecontainer">
 				<i class="fa fa-film" aria-hidden="true"></i>
 				<h1>Movie FanApp</h1>
+				<div class="searchforcontainer">
+					<i class="fas fa-sync-alt"></i>
+					<p>Serach result for: <span class="searchfor"></span></p>
+				</div>
 			</div>
 			<p id="loggedusername"></p>
 			<i class="fa fa-bars burger" aria-hidden="true"></i>
@@ -57,7 +61,7 @@
 					<i class="fa fa-times about-close" aria-hidden="true"></i>
 				</div>
 				<div>
-					<p class="abtme_name"></p>
+					<h2 class="abtme_name"></h2>
 					<p>
 						Total movies you've tracked are :
 						<span class="abtme_totaltracked"></span>
@@ -72,10 +76,10 @@
 					</p>
 				</div>
 			</div>
-			<div class="looney-tunes-popup movie-popup">
+			<div class="movie-popup">
 				<div>
 					<h2>Movie Details</h2>
-					<i class="fa fa-times looney-tunes-close" aria-hidden="true"></i>
+					<i class="fa fa-times movie-popup-close" aria-hidden="true"></i>
 				</div>
 				<div>
 					<div class="img">

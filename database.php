@@ -7,7 +7,28 @@
 		       	die("Connection failed" . mysqli_connect_error());
 		  		}
             
-                  
+            if($path == "USERSIGNIN"){
+                $username = isset($decodedparameters['username']) ? $decodedparameters['username'] :"";
+                $password = isset($decodedparameters['password']) ? $decodedparameters['password'] :"";
+                $sql = "SELECT * FROM users WHERE (username,password) = ('$username','$password')";
+                $result = mysqli_query($conn,$sql);
+                $movs = array();
+                if (mysqli_num_rows($result) > 0){
+                    while($row = mysqli_fetch_assoc($result)){
+                        array_push($movs,$row);   
+                    }
+                    echo (json_encode($movs));
+                }
+                
+            }
+
+             if($path == "USERNAMECHECK"){
+                $username = isset($decodedparameters['username']) ? $decodedparameters['username'] :"";
+                $sql = "SELECT COUNT(*) FROM users WHERE BINARY username = '$username'";
+                $result = mysqli_query($conn,$sql);
+                $row = mysqli_fetch_assoc($result); 
+                echo $row['COUNT(*)'];  
+             }
 
             if($path == "GETMOVIES"){
                 $offset = isset($decodedparameters['offset']) ? $decodedparameters['offset'] :1;
