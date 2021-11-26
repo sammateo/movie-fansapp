@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Movie FanApp</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="home.css" />
+	</head>
+	<body>
+		<header>
+			<div>
+				<i class="fa fa-film" aria-hidden="true"></i>
+				<h1>Movie FanApp</h1>
+			</div>
+			<p id="loggedusername"></p>
+			<i class="fa fa-bars burger" aria-hidden="true"></i>
+
+			<div class="menu">
+				<ul>
+					<li>Home</li>
+					<li class="search">Search</li>
+					<li class="mwlink">Must Watch</li>
+					<li class="awlink">Already Watched</li>
+					<li class="about">About Me</li>
+				</ul>
+			</div>
+		</header>
+		<main></main>
+		<div class="mask"></div>
+		<div class="popups">
+			<div class="search-popup">
+				<div>
+					<h2>Search Database</h2>
+					<i class="fa fa-times search-close" aria-hidden="true"></i>
+				</div>
+				<div>
+					<div>
+						<input
+							class="search-input"
+							type="text"
+							placeholder="Title Search"
+						/>
+						<button class="search-btn">Submit</button>
+					</div>
+
+					<div><p class="recordsfound">Records found</p></div>
+				</div>
+			</div>
+			<div class="about-popup">
+				<div>
+					<h2>About Me</h2>
+					<i class="fa fa-times about-close" aria-hidden="true"></i>
+				</div>
+				<div>
+					<p>Mateo Sam</p>
+					<p>Student of the University of the West Indies</p>
+					<p>I like Web Development</p>
+				</div>
+			</div>
+			<div class="looney-tunes-popup movie-popup">
+				<div>
+					<h2>Movie Details</h2>
+					<i class="fa fa-times looney-tunes-close" aria-hidden="true"></i>
+				</div>
+				<div>
+					<div class="img">
+						<img
+							class="popimg"
+							src="https://image.tmdb.org/t/p/w500/pNrQaH0ATrz9wFrNpwfB1aU4MpK.jpg"
+						/>
+					</div>
+					<div class="details">
+						<p class="imdbid">IMBD ID: STRING</p>
+						<p class="title">TITLE: Looney Tunes</p>
+						<p class="year-release">YEAR RELEASE: 2003</p>
+						<p class="runtime">RUNTIME: 1h 31min</p>
+						<p class="genres">GENRES:</p>
+					</div>
+					<div class="overview">
+						OVERVIEW: Sick of ceding the spotlight to Bugs Bunny (Joe Alaskey),
+						Daffy Duck is unceremoniously fired by studio boss Kate Houghton
+						(Jenna Elfman) when he demands equal pay and billing. Daffy goes on
+						a studio lot rampage, taking down security guard D.J. Drake (Brendan
+						Fraser) in the process, who is also sacked. But when D.J.'s A-list
+						actor dad (Timothy Dalton) is kidnapped by the evil Mr. Chairman
+						(Steve Martin), D.J. and Daffy try to rescue him, while also being
+						pursued by Kate and Bugs.
+					</div>
+
+					<div class="buttons">
+						<button class="btn-mw">Must Watch</button
+						><button class="btn-aw">Already Watch</button
+						><button class="btn-cs">Clear Status</button>
+					</div>
+					<div class="status"></div>
+				</div>
+			</div>
+		</div>
+		<div class="pagination"></div>
+	</body>
+	<script src="home.js"></script>
+</html>

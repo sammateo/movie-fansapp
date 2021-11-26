@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+		/>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="title">
+				<h1>Movie FansApp</h1>
+				<p>The number one movie tracking website</p>
+			</div>
+
+			<div class="buttons">
+				<button class="sign-in">Sign In</button
+				><button class="register">Register</button>
+			</div>
+		</div>
+		<div class="sign-popup">
+			<div>
+				<h2>User Sign In</h2>
+				<i class="fa fa-times signin-close" aria-hidden="true"></i>
+			</div>
+			<div>
+				<label for="username">UserName</label>
+				<input
+					type="text"
+					name="username"
+					placeholder="username"
+					id="signusername"
+				/>
+				<label for="username">Password</label>
+				<input
+					type="text"
+					name="password"
+					placeholder="password"
+					id="signpassword"
+				/>
+				<button type="submit" class="signinbtn">Submit</button>
+			</div>
+		</div>
+
+		<div class="register-popup">
+			<div>
+				<h2>Register New User</h2>
+				<i class="fa fa-times register-close" aria-hidden="true"></i>
+			</div>
+			<div>
+				<label for="username">UserName</label>
+				<input
+					type="text"
+					name="username"
+					placeholder="username"
+					id="registerusername"
+				/>
+
+				<label for="fullname">Full Name</label>
+				<input
+					type="text"
+					name="fullname"
+					placeholder="Full Name"
+					id="registerfullname"
+				/>
+
+				<label for="password">Password</label>
+				<input
+					type="text"
+					name="password"
+					placeholder="password"
+					id="registerpassword"
+				/>
+
+				<label for="confirmpassword">Confirm Password</label>
+				<input
+					type="text"
+					name="confirmpassword"
+					placeholder="confirm password"
+					id="confirm"
+				/>
+				<div class="regbuttons">
+					<button type="submit" class="clear">Clear</button>
+					<button type="submit" class="registersubmit">Submit</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="script.js"></script>
+</html>
