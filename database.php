@@ -65,9 +65,25 @@
                 $ppath = isset($decodedparameters['ppath']) ? $decodedparameters['ppath'] :"";
                 $ogtitle= isset($decodedparameters['ogtitle']) ? $decodedparameters['ogtitle'] :"";
                 $overview = isset($decodedparameters['overview']) ? $decodedparameters['overview'] :"";
+                $sqlcheck = "SELECT COUNT(*) FROM user_status WHERE (user_number,movie_number,status,poster_path,original_title,overview) = ('$usernum','$movienum','$status','$ppath','$ogtitle','$overview')";
                 $sql = "INSERT INTO user_status (user_number,movie_number,status,poster_path,original_title,overview) VALUES ('$usernum','$movienum','$status','$ppath','$ogtitle','$overview') ";
                 // $result = mysqli_query($conn,$sql);
-               if($conn->query($sql) === TRUE){
+                $numfound = mysqli_query($conn,$sqlcheck);
+                $numfound = mysqli_fetch_assoc($numfound); 
+                $numfound  = $numfound['COUNT(*)'];
+                echo $numfound;
+                if($numfound > 0) //if it is in the database already
+                {
+                    $sqlupdate = "UPDATE user_status SET status = '$status' WHERE (user_number,movie_number) = ('$usernum','$movienum') AND status != '$status'";
+                    if(mysqli_query($conn,$sqlupdate) === TRUE){
+                            echo "Record Updated";
+                    }
+                    else{
+                        echo "Error: " . mysqli_error($conn);
+                    }
+                    
+                }
+                else if($conn->query($sql) === TRUE){
                     echo "New Record Created";
                 }
                 else{
