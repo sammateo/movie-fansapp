@@ -324,6 +324,9 @@ main > img:hover {
 		padding-left: 15px;
 		padding-right: 15px;
 	}
+	.menu > ul > li:hover {
+		background-color: rgba(255, 255, 255, 0.3);
+	}
 	.search-popup,
 	.about-popup,
 	.movie-popup {

@@ -613,6 +613,10 @@ btn_cs.addEventListener("click", (e) => {
 });
 
 // Routing
+let home = document.querySelector(".home");
+home.addEventListener("click", () => {
+	movieCount();
+});
 let mwlink = document.querySelector(".mwlink");
 
 mwlink.addEventListener("click", () => {
