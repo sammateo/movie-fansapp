@@ -30,6 +30,20 @@
                 echo $row['COUNT(*)'];  
              }
 
+             if($path == "REGISTERUSER"){
+                $username = isset($decodedparameters['username']) ? $decodedparameters['username'] :"";
+                $fullname = isset($decodedparameters['fullname']) ? $decodedparameters['fullname'] :"";
+                $password = isset($decodedparameters['password']) ? $decodedparameters['password'] :"";
+                $sql =  "INSERT INTO users (name,username,password) values ('$fullname','$username','$password')";
+                if($conn->query($sql) === TRUE){
+                    echo "New User Registered";
+                }
+                else{
+                    echo "Error ". $sql . "<br>".$conn->error;
+                }
+
+             }
+
             if($path == "GETMOVIES"){
                 $offset = isset($decodedparameters['offset']) ? $decodedparameters['offset'] :1;
                 $sql = "SELECT * FROM movies LIMIT 20 OFFSET $offset";

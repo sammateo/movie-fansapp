@@ -232,3 +232,61 @@ regpassword.addEventListener("focusout", () => {
 		passwordcheck = true;
 	}
 });
+
+// Confirmation
+let confirmcheck = false;
+let regconfirm = document.querySelector("#confirm");
+regconfirm.addEventListener("focusout", () => {
+	if (regconfirm.value.length < 1) {
+		regconfirm.style.backgroundColor = orange;
+		regstatus.style.display = "block";
+		regstatus.innerHTML = "Confirm can't be empty!";
+		confirmcheck = false;
+	} else if (regpassword.value === regconfirm.value && passwordcheck) {
+		regconfirm.style.backgroundColor = grey;
+		regstatus.style.display = "none";
+		regstatus.innerHTML = "";
+		confirmcheck = true;
+	} else {
+		regconfirm.style.backgroundColor = orange;
+		regstatus.style.display = "block";
+		regstatus.innerHTML = "Confirm and Password must match!";
+		confirmcheck = false;
+	}
+});
+
+// clear
+let clear = document.querySelector(".clear");
+clear.addEventListener("click", () => {
+	reg_username.value = "";
+	fullname.value = "";
+	regpassword.value = "";
+	regconfirm.value = "";
+});
+
+// submit
+let regsubmit = document.querySelector(".registersubmit");
+regsubmit.addEventListener("click", () => {
+	if (usernamecheck && fnamecheck && passwordcheck && confirmcheck) {
+		let params = JSON.stringify({
+			path: "REGISTERUSER",
+			username: reg_username.value,
+			fullname: fullname.value,
+			password: regpassword.value,
+		});
+		let formData1 = new FormData();
+		formData1.append("parameters", params);
+		fetch("database.php", {
+			method: "POST",
+			body: formData1,
+		})
+			.then((res) => res.text())
+			.then((data) => {
+				console.log(data);
+				closeReg();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+});

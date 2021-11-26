@@ -161,7 +161,8 @@ body {
 .signin-close:hover,
 .about-close:hover,
 .register-close:hover,
-.movie-popup > div > i:hover {
+.movie-popup > div > i:hover,
+.register-popup > div:nth-child(2) > .regbuttons > button:hover {
 	cursor: pointer;
 }
 
