@@ -34,7 +34,7 @@ const displaymovies = (data) => {
 let params = JSON.stringify({
 	path: "MUSTWATCHCOUNT",
 	usernum: Number(JSON.parse(sessionStorage.getItem("loggedinuser")).number),
-	status: "MW",
+	status: "AW",
 });
 let formData1 = new FormData();
 formData1.append("parameters", params);
@@ -86,7 +86,7 @@ const pagination = (count) => {
 			usernum: Number(
 				JSON.parse(sessionStorage.getItem("loggedinuser")).number
 			),
-			status: "MW",
+			status: "AW",
 			offset: (page - 1) * nummovies,
 		});
 		let formData = new FormData();

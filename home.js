@@ -55,6 +55,50 @@ const openAbout = () => {
 		: null;
 	mask.style.display = "block";
 	aboutPop.style.display = "block";
+	let abtme_name = document.querySelector(".abtme_name");
+	let abtme_total = document.querySelector(".abtme_totaltracked");
+	let abtme_mw = document.querySelector(".abtme_totalmw");
+	let abtme_aw = document.querySelector(".abtme_totalaw");
+	let name = JSON.parse(sessionStorage.getItem("loggedinuser")).name;
+	abtme_name.innerHTML = name;
+
+	let parameters = JSON.stringify({
+		path: "MUSTWATCHCOUNT",
+		usernum: Number(JSON.parse(sessionStorage.getItem("loggedinuser")).number),
+		status: "MW",
+	});
+	let params = JSON.stringify({
+		path: "MUSTWATCHCOUNT",
+		usernum: Number(JSON.parse(sessionStorage.getItem("loggedinuser")).number),
+		status: "AW",
+	});
+
+	let formData = new FormData();
+	formData.append("parameters", parameters);
+	let awformData = new FormData();
+	awformData.append("parameters", params);
+	fetch("database.php", {
+		method: "POST",
+		body: formData,
+	})
+		.then((res) => res.text())
+		.then((data) => {
+			// console.log(data);
+			abtme_mw.innerHTML = data;
+		})
+		.then(
+			fetch("database.php", {
+				method: "POST",
+				body: awformData,
+			})
+				.then((res) => res.text())
+				.then((data) => {
+					// console.log(data);
+					abtme_aw.innerHTML = data;
+					// console.log(Number(data) + Number(abtme_mw.innerHTML));
+					abtme_total.innerHTML = Number(data) + Number(abtme_mw.innerHTML);
+				})
+		);
 };
 const closeAbout = () => {
 	aboutPop.style.display = "none";
@@ -79,7 +123,7 @@ const movieCount = () => {
 	})
 		.then((res) => res.json())
 		.then((data) => {
-			console.log(data);
+			// console.log(data);
 			let count = data;
 			pagination(count);
 		});
@@ -118,6 +162,40 @@ const displaymovies = (movies) => {
 // const moviepop = () => {
 //Movie Popups
 // let movies = document.querySelectorAll("main img");
+const checkMovieStatus = (movienum) => {
+	let usernum = Number(
+		JSON.parse(sessionStorage.getItem("loggedinuser")).number
+	);
+
+	let parameters = JSON.stringify({
+		path: "CHECKMOVIESTATUS",
+		usernum: usernum,
+		movienum: movienum,
+	});
+	let formData = new FormData();
+	formData.append("parameters", parameters);
+	fetch("database.php", {
+		method: "POST",
+		body: formData,
+	})
+		.then((res) => res.text())
+		.then((data) => {
+			// console.log(data);
+			let status = document.querySelector(".status");
+			if (data == "MW") {
+				status.innerHTML = "This movie is in the Must Watch list";
+				status.style.display = "block";
+			} else if (data == "AW") {
+				status.innerHTML = "This movie is in the Already Watched list";
+				status.style.display = "block";
+			} else {
+				status.innerHTML = "";
+				status.style.display = "none";
+			}
+			// status.innerHTML = "Must Watch list is updated";
+			// status.style.display = "block";
+		});
+};
 const openMovie = (e) => {
 	let imdbid = document.querySelector(".imdbid");
 	let title = document.querySelector(".title");
@@ -126,10 +204,10 @@ const openMovie = (e) => {
 	let genre = document.querySelector(".genres");
 	let overview = document.querySelector(".overview");
 	let popimg = document.querySelector(".popimg");
+	// let status = document.querySelector(".status");
 	let prefix = e.target.className;
 	let choice = "." + prefix + "-popup";
 	choice = ".movie-popup";
-
 	let mov;
 	let movies;
 	if (sessionStorage) {
@@ -139,8 +217,9 @@ const openMovie = (e) => {
 	for (const m of movies) {
 		if (m.id == e.target.id) {
 			document.querySelector(choice).id = m.id;
-			console.log(document.querySelector(choice).id);
+			// console.log(document.querySelector(choice).id);
 			mov = m;
+			checkMovieStatus(mov.number);
 		}
 	}
 
@@ -188,7 +267,7 @@ const getMovies = (page) => {
 				sessionStorage.setItem("movies", JSON.stringify(data));
 				// console.log(JSON.parse(sessionStorage.getItem("movies")));
 			}
-			console.log(data);
+			// console.log(data);
 		});
 };
 
@@ -216,7 +295,7 @@ const pagination = (count) => {
 					sessionStorage.setItem("movies", JSON.stringify(data));
 					// console.log(JSON.parse(sessionStorage.getItem("movies")));
 				}
-				console.log(data);
+				// console.log(data);
 			});
 		// displaymovies(page);
 
@@ -361,7 +440,7 @@ const searchpagination = (count) => {
 					sessionStorage.setItem("movies", JSON.stringify(data));
 					// console.log(JSON.parse(sessionStorage.getItem("movies")));
 				}
-				console.log(data);
+				// console.log(data);
 			});
 		removeAllChildNodes(pagination);
 		// let start = 0;
@@ -406,19 +485,18 @@ const searchpagination = (count) => {
 
 // addtomustwatchlist
 let btn_mw = document.querySelector(".btn-mw");
-let btn_aw = document.querySelector(".btn-aw");
 
 btn_mw.addEventListener("click", (e) => {
 	let selectedid = e.target.parentNode.parentNode.parentNode.id;
 	let mwmovie;
-	console.log(selectedid);
+	// console.log(selectedid);
 	let movies = JSON.parse(sessionStorage.getItem("movies"));
 	movies.forEach((m) => {
 		if (m.id == selectedid) {
 			mwmovie = m;
 		}
 	});
-	console.log(mwmovie);
+	// console.log(mwmovie);
 	// console.log(mwmovie.overview.replace(/'/g, '""'));
 	let parameters = JSON.stringify({
 		path: "ADDMUSTWATCH",
@@ -437,10 +515,88 @@ btn_mw.addEventListener("click", (e) => {
 	})
 		.then((res) => res.text())
 		.then((data) => {
-			console.log(data);
+			// console.log(data);
 			let status = document.querySelector(".status");
 			status.innerHTML = "Must Watch list is updated";
 			status.style.display = "block";
+		});
+});
+
+//add to already watched list
+let btn_aw = document.querySelector(".btn-aw");
+
+btn_aw.addEventListener("click", (e) => {
+	let selectedid = e.target.parentNode.parentNode.parentNode.id;
+	let awmovie;
+	// console.log(selectedid);
+	let movies = JSON.parse(sessionStorage.getItem("movies"));
+	movies.forEach((m) => {
+		if (m.id == selectedid) {
+			awmovie = m;
+		}
+	});
+	// console.log(awmovie);
+	// console.log(mwmovie.overview.replace(/'/g, '""'));
+	let parameters = JSON.stringify({
+		path: "ADDMUSTWATCH",
+		usernum: Number(JSON.parse(sessionStorage.getItem("loggedinuser")).number),
+		movienum: Number(awmovie.number),
+		status: "AW",
+		ppath: awmovie.poster_path,
+		ogtitle: awmovie.original_title.replace(/'/g, "\\'"),
+		overview: awmovie.overview.replace(/'/g, "\\'"),
+	});
+	let formData = new FormData();
+	formData.append("parameters", parameters);
+	fetch("database.php", {
+		method: "POST",
+		body: formData,
+	})
+		.then((res) => res.text())
+		.then((data) => {
+			// console.log(data);
+			let status = document.querySelector(".status");
+			status.innerHTML = "Already Watched list is updated";
+			status.style.display = "block";
+		});
+});
+
+// clear status
+let btn_cs = document.querySelector(".btn-cs");
+
+btn_cs.addEventListener("click", (e) => {
+	let selectedid = e.target.parentNode.parentNode.parentNode.id;
+	let csmovie;
+	// console.log(selectedid);
+	let movies = JSON.parse(sessionStorage.getItem("movies"));
+	movies.forEach((m) => {
+		if (m.id == selectedid) {
+			csmovie = m;
+		}
+	});
+	// console.log(csmovie);
+	// console.log(mwmovie.overview.replace(/'/g, '""'));
+	let parameters = JSON.stringify({
+		path: "ADDMUSTWATCH",
+		usernum: Number(JSON.parse(sessionStorage.getItem("loggedinuser")).number),
+		movienum: Number(csmovie.number),
+		status: "",
+		ppath: csmovie.poster_path,
+		ogtitle: csmovie.original_title.replace(/'/g, "\\'"),
+		overview: csmovie.overview.replace(/'/g, "\\'"),
+	});
+	let formData = new FormData();
+	formData.append("parameters", parameters);
+	fetch("database.php", {
+		method: "POST",
+		body: formData,
+	})
+		.then((res) => res.text())
+		.then((data) => {
+			// console.log(data);
+			let status = document.querySelector(".status");
+			status.innerHTML = "";
+			status.style.display = "none";
 		});
 });
 
@@ -449,6 +605,12 @@ let mwlink = document.querySelector(".mwlink");
 
 mwlink.addEventListener("click", () => {
 	window.location.replace("./must_watch.html");
+});
+
+let awlink = document.querySelector(".awlink");
+
+awlink.addEventListener("click", () => {
+	window.location.replace("./already_watched.html");
 });
 
 // status lists

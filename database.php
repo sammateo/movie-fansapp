@@ -65,7 +65,7 @@
                 $ppath = isset($decodedparameters['ppath']) ? $decodedparameters['ppath'] :"";
                 $ogtitle= isset($decodedparameters['ogtitle']) ? $decodedparameters['ogtitle'] :"";
                 $overview = isset($decodedparameters['overview']) ? $decodedparameters['overview'] :"";
-                $sqlcheck = "SELECT COUNT(*) FROM user_status WHERE (user_number,movie_number,status,poster_path,original_title,overview) = ('$usernum','$movienum','$status','$ppath','$ogtitle','$overview')";
+                $sqlcheck = "SELECT COUNT(*) FROM user_status WHERE (user_number,movie_number,poster_path,original_title,overview) = ('$usernum','$movienum','$ppath','$ogtitle','$overview')";
                 $sql = "INSERT INTO user_status (user_number,movie_number,status,poster_path,original_title,overview) VALUES ('$usernum','$movienum','$status','$ppath','$ogtitle','$overview') ";
                 // $result = mysqli_query($conn,$sql);
                 $numfound = mysqli_query($conn,$sqlcheck);
@@ -96,7 +96,7 @@
                 $status = isset($decodedparameters['status']) ? $decodedparameters['status'] :"";
                 $offset = isset($decodedparameters['offset']) ? $decodedparameters['offset'] :1;
 
-                $sql = "SELECT * FROM user_status WHERE (user_number,status) = ('$usernum','$status') LIMIT 20 OFFSET $offset";
+                $sql = "SELECT * FROM user_status WHERE (user_number,status) = ('$usernum','$status') LIMIT 6 OFFSET $offset";
                 $result = mysqli_query($conn,$sql);
                 $numrecs = mysqli_num_rows($result);
                 $movs = array();
@@ -122,6 +122,21 @@
                  $row = mysqli_fetch_assoc($result); 
                 echo $row['COUNT(*)'];  
                 // }
+            }
+
+            if($path == "CHECKMOVIESTATUS"){
+                 $usernum = isset($decodedparameters['usernum']) ? $decodedparameters['usernum'] :"";
+                $movienum = isset($decodedparameters['movienum']) ? $decodedparameters['movienum'] :"";
+                 $sql = "SELECT * FROM user_status WHERE (user_number,movie_number) = ('$usernum','$movienum')";
+                $result = mysqli_query($conn,$sql);
+                $result = mysqli_fetch_assoc($result); 
+                if($result != null){
+                    print_r($result['status']);
+                }
+                else{
+                    echo "No Status";
+                }
+                
             }
         mysqli_close($conn);
 		?>
