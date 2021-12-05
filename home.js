@@ -98,7 +98,10 @@ const openAbout = () => {
 					// console.log(Number(data) + Number(abtme_mw.innerHTML));
 					abtme_total.innerHTML = Number(data) + Number(abtme_mw.innerHTML);
 				})
-		);
+		)
+		.catch((e) => {
+			console.log(e);
+		});
 };
 const closeAbout = () => {
 	aboutPop.style.display = "none";
@@ -130,16 +133,6 @@ const movieCount = () => {
 };
 movieCount();
 
-// fetch("movies.php")
-// 	.then((data) => data.json())
-// 	.then((data) => {
-// 		movieData = data;
-// 		console.log(movieData);
-// 		// displaymovies(pageTracker);
-// 		pagination();
-// 		// moviepop();
-// 	});
-
 function removeAllChildNodes(parent) {
 	while (parent.firstChild) parent.removeChild(parent.firstChild);
 }
@@ -148,7 +141,6 @@ const displaymovies = (movies) => {
 	removeAllChildNodes(main);
 	// Posters
 	for (const movie of movies) {
-		// if (i < pageTracker * 20 && i > (pageTracker - 1) * 20 - 1) {
 		let poster = document.createElement("img");
 		// poster.className = "looney-tunes";
 		poster.id = movie.id;
@@ -159,9 +151,6 @@ const displaymovies = (movies) => {
 	}
 };
 
-// const moviepop = () => {
-//Movie Popups
-// let movies = document.querySelectorAll("main img");
 const checkMovieStatus = (movienum) => {
 	let usernum = Number(
 		JSON.parse(sessionStorage.getItem("loggedinuser")).number
@@ -192,8 +181,6 @@ const checkMovieStatus = (movienum) => {
 				status.innerHTML = "";
 				status.style.display = "none";
 			}
-			// status.innerHTML = "Must Watch list is updated";
-			// status.style.display = "block";
 		});
 };
 const openMovie = (e) => {
@@ -204,9 +191,6 @@ const openMovie = (e) => {
 	let genre = document.querySelector(".genres");
 	let overview = document.querySelector(".overview");
 	let popimg = document.querySelector(".popimg");
-	// let status = document.querySelector(".status");
-	// let prefix = e.target.className;
-	// let choice = "." + prefix + "-popup";
 	let choice = ".movie-popup";
 	let mov;
 	let movies;
@@ -244,11 +228,6 @@ const openMovie = (e) => {
 	movieClose.addEventListener("click", closeMovie);
 };
 
-// for (const movie of movies) {
-// 	movie.addEventListener("click", openMovie);
-// }
-// };
-
 const getMovies = (page) => {
 	let parameters = JSON.stringify({
 		path: "GETMOVIES",
@@ -274,9 +253,6 @@ const getMovies = (page) => {
 const pagination = (count) => {
 	// Pagination
 	let pagination = document.querySelector(".pagination");
-	// function removeAllChildNodes(parent) {
-	// 	while (parent.firstChild) parent.removeChild(parent.firstChild);
-	// }
 	function Paging(page) {
 		let parameters = JSON.stringify({
 			path: "GETMOVIES",
@@ -299,23 +275,18 @@ const pagination = (count) => {
 			});
 		// displaymovies(page);
 
-		// getMovies(page);
-		// let moviedata = JSON.parse(sessionStorage.getItem("movies"));
-		// displaymovies(moviedata);
 		removeAllChildNodes(pagination);
 		// let start = 0;
 		let top = Math.ceil(count / 20);
 		let end = 10;
 
-		let currentPage = page, // input
-			range = 11, // amount of links displayed
-			totalPages = top, // determined by amount of items, hardcoded for readability
-			start = 0; // default
+		let currentPage = page, //current page
+			range = 11, // number of pages at a time
+			totalPages = top, //total pages
+			start = 0; // default starting point
 
-		// Don't use negative values, force start at 1
 		if (currentPage < range / 2 + 1) {
 			start = 0;
-
 			// Don't go beyond the last page
 		} else if (currentPage >= totalPages - range / 2) {
 			start = Math.floor(totalPages - range + 1);
@@ -349,7 +320,7 @@ let usersname = document.querySelector("#loggedusername");
 
 if (sessionStorage) {
 	let userdetails = JSON.parse(sessionStorage.getItem("loggedinuser"));
-	console.log(userdetails);
+	// console.log(userdetails);
 
 	if (userdetails) {
 		usersname.innerHTML = userdetails.name;
@@ -394,19 +365,6 @@ searchbtn.addEventListener("click", () => {
 		numrecs.innerHTML = "No records found";
 		return;
 	}
-	// let parameters = JSON.stringify({
-	// 	path: "SEARCHMOVIES",
-	// 	query: searchin.value,
-	// });
-	// let formData = new FormData();
-	// formData.append("parameters", parameters);
-	// fetch("database.php", {
-	// 	method: "POST",
-	// 	body: formData,
-	// })
-	// 	.then((res) => res.json())
-	// 	.then((data) => {
-	// 		console.log(data);
 	let moviecount = 0;
 	if (sessionStorage) {
 		moviecount = JSON.parse(sessionStorage.getItem("moviecount"));

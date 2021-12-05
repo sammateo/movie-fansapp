@@ -1,6 +1,6 @@
 if (sessionStorage) {
 	let userdetails = JSON.parse(sessionStorage.getItem("loggedinuser"));
-	console.log(userdetails);
+	// console.log(userdetails);
 
 	if (!userdetails) {
 		window.location.replace("./index.html");
@@ -57,7 +57,7 @@ fetch("database.php", {
 		// );
 		let mwnum = document.querySelector(".mwnum");
 		mwnum.innerHTML = data;
-		console.log(data);
+		// console.log(data);
 		pagination(data);
 	});
 
@@ -109,7 +109,7 @@ const pagination = (count) => {
 				// 	Number(JSON.parse(sessionStorage.getItem("loggedinuser")).number)
 				// );
 
-				console.log(data);
+				// console.log(data);
 				displaymovies(data);
 			});
 		removeAllChildNodes(pagination);

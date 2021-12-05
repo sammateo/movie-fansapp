@@ -1,12 +1,4 @@
-// let userData = [];
 let signinbtn = document.querySelector(".signinbtn");
-// fetch("users.php")
-// 	.then((data) => data.json())
-// 	.then((data) => {
-// 		userData = data;
-// 		console.log(userData);
-// 		// console.log(data[0]);
-// 	});
 
 // Signin
 let signin = document.querySelector(".sign-in");
@@ -187,12 +179,6 @@ const checkUpperCase = (word) => {
 			return true;
 		}
 	}
-	// [...word].forEach((w) => {
-	// 	if (w == w.toUpperCase() && !checkNumber(w)) {
-	// 		console.log("Has uppercase");
-	// 		return true;
-	// 	}
-	// });
 	return false;
 };
 
